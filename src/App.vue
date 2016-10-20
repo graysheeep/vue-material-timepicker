@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import Hello from './components/Hello'
+import TimePicker from './components/TimePicker'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    TimePicker
   }
 }
 </script>

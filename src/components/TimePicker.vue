@@ -16,12 +16,12 @@
                     <span 
                       class="hour" 
                       @click="mode = 'hour'" 
-                      :style="{ opacity: mode === 'hour' ? 1 : 0.7 }">04</span>
+                      :style="{ opacity: mode === 'hour' ? 1 : 0.7 }">{{fixHour(hour)}}</span>
                     <span>:</span>
                     <span 
                       class="minutes" 
                       @click="mode = 'minutes'"
-                      :style="{ opacity: mode === 'minutes' ? 1 : 0.7 }">58</span>
+                      :style="{ opacity: mode === 'minutes' ? 1 : 0.7 }">{{fixMinutes(minutes)}}</span>
                   </div>
                   <div class="time-right"></div>
                 </div>
@@ -31,12 +31,13 @@
                 <div class="clockbg"></div>
                 <div class="hourpicker">
                   <div 
-                    class="selector"></div>
+                    class="selector"
+                    :style="selectorRotateAngle"></div>
                   <span 
                     class="hourtxt" 
                     v-for="i in 12"
                     :style="getHourStyle(i % 12)"
-                    @click="hour = i">{{mode === 'hour' ? i : (5 * i) % 60 || '00'}}</span>
+                    @click="mode === 'hour' ? hour = i : minutes = 5 * i">{{mode === 'hour' ? i : (5 * i) % 60 || '00'}}</span>
                 </div>
               </div>
 
@@ -87,13 +88,21 @@ export default {
     return {
       showPicker: false,
       mode: 'hour',
-      hour: 1,
-      minutes: 1
+      hour: 12,
+      minutes: 0
     }
   },
   computed: {
     selectorRotateAngle () {
-      
+      if (this.mode === 'hour') {
+        return {
+          transform: `rotateZ(${this.hour * 30 + 'deg'})`
+        }
+      } else {
+        return {
+          transform: `rotateZ(${this.minutes * 6 + 'deg'})`
+        }
+      }
     }
   },
   methods: {
@@ -103,11 +112,24 @@ export default {
     },
 
     getHourStyle (i) {
+      const hasSelected = (this.mode === 'hour' &&  this.hour % 12 === i) 
+        || (this.mode === 'minutes' && this.minutes % 60 === i * 5)
       const styleObj = {
-        transform: `translate(${positions[i][0] + 'px'}, ${positions[i][1] + 'px'})`
+        transform: `translate(${positions[i][0] + 'px'}, ${positions[i][1] + 'px'})`,
+        background: hasSelected ? 'rgb(0, 188, 212)' : 'rgba(255, 255, 255, 0)',
+        color: !hasSelected ? '#2c3e50' : '#FFF'
       }
       return styleObj
+    },
+
+    fixHour (h) {
+      return h < 10 ? '0' + h : h
+    },
+
+    fixMinutes (m) {
+      return m % 60 < 10 ? '0' + m % 60 : m % 60
     }
+
   }
 }
 </script>
@@ -160,6 +182,7 @@ input {
 .clock-wrap {
   width: 280px;
   max-width: 768px;
+  border-radius: 2px;
   margin: 0 auto;
   background-color: rgb(255, 255, 255)
 }
@@ -224,7 +247,7 @@ input {
   width: 100%;
   border-radius: 100%;
   position: relative;
-  pointer-events: none;
+  /*pointer-events: none;*/
   box-sizing: border-box;
 }
 
@@ -232,14 +255,15 @@ input {
   display: inline-block;
   position: absolute;
   width: 32px;
-  height: 32px;
+  height: 28px;
   border-radius: 100%;
   left: calc(50% - 16px);
   top: 10px;
   text-align: center;
   padding-top: 5px;
   font-size: 1.1em;
-  pointer-events: none;
+  cursor: pointer;
+  /*pointer-events: none;*/
 }
 
 .selector {
