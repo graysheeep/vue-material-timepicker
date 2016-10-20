@@ -143,10 +143,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@font-face {
-  font-family: Roboto;
-  src: url(../assets/Roboto-Medium.ttf);
-}
 
 * {
   font-family: Roboto;
