@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <hello></hello>
+    <time-picker></time-picker>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input placeholder="please select time" @focus="focusHandler"/>
+    <input placeholder="please select time" @focus="focusHandler" v-model="time"/>
 
     <transition name="movedown-fade">
       <div 
@@ -42,12 +42,12 @@
               </div>
 
               <div class="actionbuttons">
-                <button>
+                <button @click="showPicker = false">
                   <div>
                     <span>CANCEL</span>
                   </div>
                 </button>
-                <button>
+                <button @click="time = getTime()">
                   <div>
                     <span>OK</span>
                   </div>
@@ -88,6 +88,7 @@ export default {
     return {
       showPicker: false,
       mode: 'hour',
+      time: '',
       hour: 12,
       minutes: 0
     }
@@ -128,6 +129,12 @@ export default {
 
     fixMinutes (m) {
       return m % 60 < 10 ? '0' + m % 60 : m % 60
+    },
+
+    getTime () {
+      const { hour, minutes } = this
+      this.showPicker = false
+      return (hour < 10 ? '0' + hour : hour) + ':' + (minutes < 10 ? '0' + minutes : minutes)
     }
 
   }
