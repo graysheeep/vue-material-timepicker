@@ -2,7 +2,7 @@
   <body>
     <a href="javascript:
              window.scrollTo(0,99999);
-             var arr = Array.apply(null, document.querySelectorAll('a')).map(a => a.href).filter(a => !a.includes('huodong')).filter(a => !a.includes('item')).filter(a => !a.includes('www')).filter(a => a.includes('taobao'));
+             var arr = Array.apply(null, document.querySelectorAll('a')).map(a => a.href).filter(a => !a.includes('huodong')).filter(a => !a.includes('item')).filter(a => !a.includes('www')).filter(a => a.includes('taobao')).filter(a => !a.includes('ju.taobao')).filter(a => !a.includes('pro.taobao')).filter(a => !a.includes('i.taobao')).filter(a => !a.includes('service.taobao'));
              var pure_arr = [];
              for (var i = 0;i<arr.length;i++) if (!pure_arr.includes(arr[i])) pure_arr.push(arr[i]);
              var div = document.createElement('div');
