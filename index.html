@@ -17,5 +17,27 @@
              var div = document.createElement('div');
              div.style.paddingLeft = '10px';
              div.innerText = pure_arr.join('\n');document.body.appendChild(div);window.scrollTo(0, 99999);">把我加入收藏夹(tmall)</a>
+    <a href="javascript:
+             var a  = document.getElementsByClassName('item-name J_TGoldData');
+             var span = document.getElementsByClassName('c-price');
+             var table = document.createElement('table');
+             for(var i= 0,max= a.length;i<max;i++){
+                 var tr = document.createElement('tr');
+                 var td1 = document.createElement('td');
+                 var td2 = document.createElement('td');
+                 var td3 = document.createElement('td');
+                 td1.innerHTML = '商品：<a href=' +a[i].href+ '>'+a[i].innerHTML+'</a>';
+                 td2.innerHTML = '链接：'+a[i].href;
+                 td3.innerHTML = '价格：'+span[i].innerHTML;
+                 tr.appendChild(td1);
+                 tr.appendChild(td2);
+                 tr.appendChild(td3);
+                 table.appendChild(tr);
+                 tr.style.borderBottom = '1px solid green';
+                 tr.style.paddingBottom = '10px';
+              }
+              document.body.appendChild(table);
+              table.style.width = 'auto';
+              table.style.margin = 'auto';">抓取热销商品信息</a>
   </body>
 </html>
